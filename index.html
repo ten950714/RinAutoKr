@@ -1,647 +1,402 @@
-* {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RinAuto Premium — B2B Export</title>
+    <!-- Подключаем иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ================= НАСТРОЙКИ ДИЗАЙНА (CSS) ================= */
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #131c2e;
+            --bg-input: #070a12;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --accent: #60a5fa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
 
-    body {
-        background-color: var(--bg-main);
-        color: var(--text-main);
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-    }
-
-    /* Скроллбар */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-        background: var(--bg-main);
-    }
-    ::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary);
-    }
-
-    /* Эффект размытия заднего фона для анимаций */
-    .fade-in-up {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-in-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Glassmorphic Header */
-    header {
-        background: rgba(11, 15, 25, 0.8);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
-        padding: 16px 0;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .header-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        font-size: 26px;
-        font-weight: 800;
-        color: #ffffff;
-        letter-spacing: -0.5px;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .logo span {
-        color: var(--primary);
-    }
-
-    .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-    }
-
-    .lang-switcher {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        color: var(--text-main);
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 14px;
-        cursor: pointer;
-        outline: none;
-    }
-
-    .btn-tg {
-        background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        padding: 10px 20px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 4px 14px rgba(34, 158, 217, 0.3);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-tg:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(34, 158, 217, 0.5);
-    }
-
-    /* Hero Section Premium */
-    .hero {
-        position: relative;
-        padding: 120px 0 80px 0;
-        background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
-                    radial-gradient(circle at 10% 80%, rgba(30, 58, 138, 0.2) 0%, transparent 50%);
-        text-align: center;
-    }
-
-    .badge-b2b {
-        display: inline-block;
-        background: rgba(59, 130, 246, 0.1);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        color: var(--accent);
-        padding: 6px 16px;
-        border-radius: 100px;
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 24px;
-    }
-
-    .hero h1 {
-        font-size: 54px;
-        font-weight: 800;
-        line-height: 1.15;
-        margin-bottom: 24px;
-        letter-spacing: -1px;
-        background: linear-gradient(to right, #ffffff, #cbd5e1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-        font-size: 19px;
-        color: var(--text-muted);
-        max-width: 750px;
-        margin: 0 auto 40px auto;
-    }
-
-    /* Имитация интеллектуального поиска по OEM */
-    .search-container {
-        max-width: 650px;
-        margin: 0 auto 50px auto;
-        position: relative;
-        background: var(--bg-card);
-        padding: 8px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .search-container:focus-within {
-        border-color: var(--primary);
-        box-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    .search-container i {
-        color: var(--text-muted);
-        margin-left: 16px;
-        font-size: 18px;
-    }
-
-    .search-container input {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: #ffffff;
-        padding: 12px;
-        font-size: 16px;
-    }
-
-    .search-container button {
-        background-color: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .search-container button:hover {
-        background-color: var(--accent-hover);
-    }
-
-    /* Бегущая строка брендов (Marquee) */
-    .marquee {
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        background: rgba(19, 28, 46, 0.4);
-        border-y: 1px solid var(--border);
-        padding: 20px 0;
-        margin-bottom: 60px;
-    }
-
-    .marquee-content {
-        display: inline-block;
-        animation: marquee 25s linear infinite;
-    }
-
-    .marquee-content span {
-        display: inline-block;
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text-muted);
-        margin-right: 60px;
-        letter-spacing: 2px;
-        opacity: 0.6;
-        transition: opacity 0.3s;
-    }
-    .marquee-content span:hover {
-        opacity: 1;
-        color: #ffffff;
-    }
-
-    @keyframes marquee {
-        0% { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(-50%, 0, 0); }
-    }
-
-    /* Блок Анимированной статистики */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 24px;
-        margin-bottom: 100px;
-    }
-
-    .stat-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        padding: 30px;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-    .stat-num {
-        font-size: 40px;
-        font-weight: 800;
-        color: var(--accent);
-        margin-bottom: 8px;
-        display: block;
-    }
-
-    .stat-label {
-        font-size: 14px;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    /* Раздел Текстовых блоков / Спецификаций */
-    .section-title {
-        text-align: center;
-        font-size: 32px;
-        font-weight: 800;
-        margin-bottom: 16px;
-        letter-spacing: -0.5px;
-    }
-
-    .section-subtitle {
-        text-align: center;
-        color: var(--text-muted);
-        max-width: 600px;
-        margin: 0 auto 60px auto;
-        font-size: 16px;
-    }
-
-    .grid-2 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-        gap: 32px;
-        margin-bottom: 100px;
-    }
-
-    @media (max-width: 768px) {
-        .grid-2 { grid-template-columns: 1fr; }
-        .hero h1 { font-size: 38px; }
-    }
-
-    .premium-card {
-        background: linear-gradient(145deg, #131c2e 0%, #0f1626 100%);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 40px;
-        position: relative;
-        overflow: hidden;
-        transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .premium-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: var(--primary);
-    }
-
-    .premium-card:hover {
-        border-color: rgba(59, 130, 246, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .premium-card h3 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .premium-card h3 i {
-        color: var(--accent);
-    }
-
-    .premium-card ul {
-        list-style: none;
-    }
-
-    .premium-card ul li {
-        margin-bottom: 14px;
-        padding-left: 28px;
-        position: relative;
-        color: var(--text-muted);
-        font-size: 15px;
-    }
-
-    .premium-card ul li i {
-        position: absolute;
-        left: 0;
-        top: 4px;
-        color: var(--accent);
-        font-size: 14px;
-    }
-
-    /* Интерактивная форма захвата */
-    .form-section {
-        background: radial-gradient(circle at center, #131c2e 0%, #0b0f19 100%);
-        padding: 100px 0;
-        border-top: 1px solid var(--border);
-    }
-
-    .form-wrapper {
-        max-width: 650px;
-        margin: 0 auto;
-        background: rgba(19, 28, 46, 0.8);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 50px;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-    }
-
-    .form-group {
-        margin-bottom: 24px;
-    }
-
-    .form-group label {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: #cbd5e1;
-    }
-
-    .form-group input, .form-group select, .form-group textarea {
-        width: 100%;
-        padding: 14px;
-        background: var(--bg-input);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        color: #ffffff;
-        font-size: 15px;
-        transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 10px var(--primary-glow);
-    }
-
-    .btn-submit {
-        width: 100%;
-        padding: 16px;
-        background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-submit:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
-    }
-
-    /* Плавающая кнопка связи пульсирующая */
-    .floating-chat {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 26px;
-        box-shadow: 0 4px 20px rgba(34, 158, 217, 0.4);
-        cursor: pointer;
-        z-index: 9999;
-        text-decoration: none;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.5); }
-        70% { box-shadow: 0 0 0 15px rgba(34, 158, 217, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0); }
-    }
-
-    footer {
-        background: #070a12;
-        padding: 30px 0;
-        text-align: center;
-        border-top: 1px solid var(--border);
-        color: var(--text-muted);
-        font-size: 14px;
-    }
-</style>
-<!-- Header -->
-<header>
-    <div class="container header-flex">
-        <a href="#" class="logo"><i class="fa-solid fa-gears text-primary"></i> Rin<span>Auto</span></a>
-        <div class="nav-right">
-            <select class="lang-switcher">
-                <option value="ru">RU</option>
-                <option value="en">EN</option>
-                <option value="ko">KO</option>
-            </select>
-            <a href="[https://t.me/your_telegram_username](https://t.me/your_telegram_username)" target="_blank" class="btn-tg">
-                <i class="fa-brands fa-telegram"></i> Оптовый отдел
-            </a>
-        </div>
-    </div>
-</header>
-
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-        <div class="badge-b2b">Южная Корея • Прямой экспорт</div>
-        <h1>Южнокорейские автокомпоненты и промышленная гидравлика оптом</h1>
-        <p>Официальные поставки со складов Инчхона и Кёнги-до. Налаженные коридоры в Узбекистан и Казахстан. Возврат 10% корейского НДС закладывается в вашу цену.</p>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
-        <!-- Интеллектуальный симулятор поиска -->
-        <div class="search-container">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="oemInput" placeholder="Введите OEM артикул детали или марку спецтехники...">
-            <button type="button" onclick="focusOnForm()">Проверить склад</button>
+        /* Скроллбар */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* Анимации появления */
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Шапка сайта */
+        header { background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 0; z-index: 1000; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 26px; font-weight: 800; color: #ffffff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--primary); }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+
+        /* Переключатель языков */
+        .lang-switcher { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; font-size: 14px; cursor: pointer; outline: none; font-weight: 600; }
+        .lang-switcher:hover { border-color: var(--primary); }
+
+        /* Кнопка Telegram */
+        .btn-tg { background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; padding: 10px 20px; border-radius: 6px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(34, 158, 217, 0.3); transition: 0.2s; }
+        .btn-tg:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(34, 158, 217, 0.5); }
+
+        /* Главный экран */
+        .hero { position: relative; padding: 120px 0 80px 0; background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(30, 58, 138, 0.2) 0%, transparent 50%); text-align: center; }
+        .badge-b2b { display: inline-block; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: var(--accent); padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 24px; }
+        .hero h1 { font-size: 54px; font-weight: 800; line-height: 1.15; margin-bottom: 24px; background: linear-gradient(to right, #ffffff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 19px; color: var(--text-muted); max-width: 750px; margin: 0 auto 40px auto; }
+
+        /* Поиск */
+        .search-container { max-width: 650px; margin: 0 auto 50px auto; background: var(--bg-card); padding: 8px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; align-items: center; transition: 0.3s; }
+        .search-container:focus-within { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+        .search-container i { color: var(--text-muted); margin-left: 16px; }
+        .search-container input { flex: 1; background: transparent; border: none; outline: none; color: #ffffff; padding: 12px; font-size: 16px; }
+        .search-container button { background-color: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+        /* Бегущая строка */
+        .marquee { width: 100%; overflow: hidden; white-space: nowrap; background: rgba(19, 28, 46, 0.4); border-y: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px; }
+        .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
+        .marquee-content span { font-size: 20px; font-weight: 700; color: var(--text-muted); margin-right: 60px; opacity: 0.6; }
+        @keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+
+        /* Статистика */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 100px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 30px; border-radius: 10px; text-align: center; }
+        .stat-num { font-size: 40px; font-weight: 800; color: var(--accent); margin-bottom: 8px; display: block; }
+        .stat-label { font-size: 14px; color: var(--text-muted); text-transform: uppercase; }
+
+        /* Карточки специализации */
+        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 16px; }
+        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 60px auto; font-size: 16px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 32px; margin-bottom: 100px; }
+        
+        .premium-card { background: linear-gradient(145deg, #131c2e 0%, #0f1626 100%); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; }
+        .premium-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .premium-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .premium-card h3 i { color: var(--accent); }
+        .premium-card ul { list-style: none; }
+        .premium-card ul li { margin-bottom: 14px; padding-left: 28px; position: relative; color: var(--text-muted); font-size: 15px; }
+        .premium-card ul li i { position: absolute; left: 0; top: 4px; color: var(--accent); }
+
+        /* Форма заявки */
+        .form-section { background: radial-gradient(circle at center, #131c2e 0%, #0b0f19 100%); padding: 100px 0; border-top: 1px solid var(--border); }
+        .form-wrapper { max-width: 650px; margin: 0 auto; background: rgba(19, 28, 46, 0.8); border: 1px solid var(--border); border-radius: 16px; padding: 50px; }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; color: #ffffff; font-size: 15px; }
+        .btn-submit { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; }
+
+        /* Плавающая кнопка чата */
+        .floating-chat { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; box-shadow: 0 4px 20px rgba(34, 158, 217, 0.4); z-index: 9999; text-decoration: none; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(34, 158, 217, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0); } }
+        
+        /* Подвал */
+        footer { background: #070a12; padding: 30px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 14px; }
+        
+        /* Адаптивность для телефонов */
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .hero h1 { font-size: 38px; } .form-wrapper { padding: 30px; } }
+    </style>
+</head>
+<body>
+
+    <!-- ================= HTML СТРУКТУРА ================= -->
+    <header>
+        <div class="container header-flex">
+            <a href="#" class="logo"><i class="fa-solid fa-gears text-primary"></i> Rin<span>Auto</span></a>
+            <div class="nav-right">
+                <!-- Селектор языков -->
+                <select class="lang-switcher" id="langSelect" onchange="changeLanguage()">
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="kk">🇰🇿 Қазақша</option>
+                    <option value="uz">🇺🇿 O'zbekcha</option>
+                    <option value="en">🇬🇧 English</option>
+                </select>
+                <a href="https://t.me/ТВОЙ_ТЕЛЕГРАМ" target="_blank" class="btn-tg">
+                    <i class="fa-brands fa-telegram"></i> <span data-i18n="nav_tg">Оптовый отдел</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="badge-b2b" data-i18n="hero_badge">Южная Корея • Прямой экспорт</div>
+            <h1 data-i18n="hero_title">Южнокорейские автокомпоненты и промышленная гидравлика оптом</h1>
+            <p data-i18n="hero_desc">Официальные поставки со складов Инчхона и Кёнги-до. Налаженные коридоры в Узбекистан и Казахстан. Возврат 10% корейского НДС закладывается в вашу цену.</p>
+            
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="oemInput" data-i18n-placeholder="search_placeholder" placeholder="Введите OEM артикул детали или марку спецтехники...">
+                <button type="button" onclick="focusOnForm()" data-i18n="search_btn">Проверить склад</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee">
+        <div class="marquee-content">
+            <span>HYUNDAI MOBIS</span><span>DOOSAN HEAVY</span><span>KIA GENUINE</span><span>MANDO</span><span>CTR KOREA</span><span>SANGSIN BRAKE</span><span>CLARK FORKLIFTS</span>
+            <span>HYUNDAI MOBIS</span><span>DOOSAN HEAVY</span><span>KIA GENUINE</span><span>MANDO</span><span>CTR KOREA</span><span>SANGSIN BRAKE</span><span>CLARK FORKLIFTS</span>
         </div>
     </div>
-</section>
 
-<!-- Бегущая строка брендов (Marquee) -->
-<div class="marquee">
-    <div class="marquee-content">
-        <span>HYUNDAI MOBIS</span>
-        <span>DOOSAN HEAVY</span>
-        <span>KIA GENUINE</span>
-        <span>MANDO</span>
-        <span>CTR KOREA</span>
-        <span>SANGSIN BRAKE</span>
-        <span>CLARK FORKLIFTS</span>
-        <span>HYUNDAI MOBIS</span>
-        <span>DOOSAN HEAVY</span>
-        <span>KIA GENUINE</span>
-        <span>MANDO</span>
-        <span>CTR KOREA</span>
-        <span>SANGSIN BRAKE</span>
-        <span>CLARK FORKLIFTS</span>
-    </div>
-</div>
+    <section class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-num">> 15к</span>
+                <span class="stat-label" data-i18n="stat_1">Деталей в постоянной базе</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">0%</span>
+                <span class="stat-label" data-i18n="stat_2">Посредников (Свой 개인사업자)</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">3-5</span>
+                <span class="stat-label" data-i18n="stat_3">Дней экспресс авиа-доставка</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">-10%</span>
+                <span class="stat-label" data-i18n="stat_4">Вычет корейского НДС</span>
+            </div>
+        </div>
+    </section>
 
-<!-- Раздел статистики -->
-<section class="container">
-    <div class="stats-grid">
-        <div class="stat-card">
-            <span class="stat-num">> 15к</span>
-            <span class="stat-label">Деталей в постоянной базе</span>
+    <section class="container fade-in-up">
+        <h2 class="section-title" data-i18n="spec_title">Специализация и Технический Аудит</h2>
+        <p class="section-subtitle" data-i18n="spec_desc">Мы обходим корпоративные барьеры чеболей, поставляя дефицитные компоненты напрямую от заводов второго эшелона.</p>
+        
+        <div class="grid-2">
+            <div class="premium-card">
+                <h3 data-i18n="card1_title"><i class="fa-solid fa-truck-pickup"></i> Спецтехника и Складские Хабы</h3>
+                <ul>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="card1_li1"><strong>Восстановленные узлы (재생)</strong>: Гидравлические насосы, редукторы и ДВС.</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="card1_li2">Экспертный подбор запчастей для экскаваторов Doosan/Hyundai.</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="card1_li3">Гарантированное решение сложных форс-мажоров при простое техники.</span></li>
+                </ul>
+            </div>
+            
+            <div class="premium-card">
+                <h3 data-i18n="card2_title"><i class="fa-solid fa-car"></i> Легковой OEM / OES Опт</h3>
+                <ul>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="card2_li1">Оригинальные расходные линейки от производителей: CTR, Mando, Sangsin.</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="card2_li2">Точечный выкуп объемов у корейских суб-дилеров.</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="card2_li3">Комплектация сборных заказов под дефицитные артикулы ваших складов.</span></li>
+                </ul>
+            </div>
         </div>
-        <div class="stat-card">
-            <span class="stat-num">0%</span>
-            <span class="stat-label">Посредников (Свой 개인사업자)</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-num">3-5</span>
-            <span class="stat-label">Дней экспресс авиа-доставка</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-num">-10%</span>
-            <span class="stat-label">Вычет корейского НДС (부가се)</span>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- Профессиональные Категории -->
-<section class="container fade-in-up">
-    <h2 class="section-title">Специализация и Технический Аудит</h2>
-    <p class="section-subtitle">Мы обходим корпоративные барьеры чеболей, поставляя дефицитные компоненты напрямую от заводов второго эшелона.</p>
+    <section class="form-section" id="leadForm">
+        <div class="container fade-in-up">
+            <div class="form-wrapper">
+                <h2 class="section-title" style="margin-bottom: 30px;" data-i18n="form_title">Срочный просчет спецификации</h2>
+                <form action="#" method="POST" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="company" data-i18n="form_label_1">Название организации / Локация</label>
+                        <input type="text" id="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="details" data-i18n="form_label_2">Список необходимых позиций (OEM, артикулы)</label>
+                        <textarea id="details" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="messenger" data-i18n="form_label_3">Прямой контакт (Telegram / WhatsApp)</label>
+                        <input type="text" id="messenger" required>
+                    </div>
+                    <button type="submit" class="btn-submit" data-i18n="form_submit">Отправить запрос на аудит цен</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://t.me/ТВОЙ_ТЕЛЕГРАМ" target="_blank" class="floating-chat"><i class="fa-brands fa-telegram"></i></a>
     
-    <div class="grid-2">
-        <!-- Спецтехника -->
-        <div class="premium-card">
-            <h3><i class="fa-solid fa-truck-pickup"></i> Спецтехника и Складские Хабы</h3>
-            <ul>
-                <li><i class="fa-solid fa-circle-check"></i> <strong>Восстановленные узлы (재생)</strong>: Гидравлические насосы, редукторы и ДВС с ресурсом 90%+ от нового завода.</li>
-                <li><i class="fa-solid fa-circle-check"></i> Экспертный подбор запчастей для тяжелых экскаваторов Doosan/Hyundai и вилочных погрузчиков Clark.</li>
-                <li><i class="fa-solid fa-circle-check"></i> Прямая работа с узкоспециализированными промзонами 재생 유압 Кореи.</li>
-                <li><i class="fa-solid fa-circle-check"></i> Гарантированное решение сложных форс-мажоров, когда техника простаивает на объекте.</li>
-            </ul>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 RinAuto Logistics Co., Ltd. South Korea.</p>
         </div>
-        
-        <!-- Легковой OEM -->
-        <div class="premium-card">
-            <h3><i class="fa-solid fa-car"></i> Легковой OEM / OES Опт</h3>
-            <ul>
-                <li><i class="fa-solid fa-circle-check"></i> Оригинальные расходные линейки напрямую от производителей конвейера: CTR, Mando, Sangsin.</li>
-                <li><i class="fa-solid fa-circle-check"></i> Точечный выкуп объемов у официальных корейских суб-дилеров под закрытие квартальных планов.</li>
-                <li><i class="fa-solid fa-circle-check"></i> Прямой доступ к оптовым партиям технических жидкостей и моторных масел премиум-класса.</li>
-                <li><i class="fa-solid fa-circle-check"></i> Комплектация сборных заказов строго под дефицитные артикулы ваших региональных складов.</li>
-            </ul>
-        </div>
-    </div>
-</section>
+    </footer>
 
-<!-- Форма захвата премиум -->
-<section class="form-section" id="leadForm">
-    <div class="container fade-in-up">
-        <div class="form-wrapper">
-            <h2 class="section-title" style="margin-bottom: 30px;">Срочный просчет спецификации</h2>
-            <form action="#" method="POST" onsubmit="handleFormSubmit(event)">
-                <div class="form-group">
-                    <label for="company">Название организации / Локация</label>
-                    <input type="text" id="company" placeholder="Пример: ТОО АвтоВосток, Алматы / Сергели, Ташкент" required>
-                </div>
-                <div class="form-group">
-                    <label for="details">Список необходимых позиций (OEM, артикулы или маркировка)</label>
-                    <textarea id="details" rows="4" placeholder="Вставьте список нужных артикулов или укажите параметры дефицитного узла..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="shipping">Логистический приоритет</label>
-                    <select id="shipping">
-                        <option value="air">Срочный Авиа-коридор (3-5 дней)</option>
-                        <option value="rail">Сборный Ж/Д контейнер (LCL)</option>
-                        <option value="sea">Морской фрахт из портов Инчхон/Пусан</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="messenger">Прямой контакт для связи (Telegram / WhatsApp)</label>
-                    <input type="text" id="messenger" placeholder="@username или телефон с кодом страны..." required>
-                </div>
-                <button type="submit" class="btn-submit">Отправить запрос на аудит цен</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-<!-- Фиксированный чат -->
-<a href="[https://t.me/your_telegram_username](https://t.me/your_telegram_username)" target="_blank" class="floating-chat">
-    <i class="fa-brands fa-telegram"></i>
-</a>
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p>&copy; 2026 RinAuto Logistics Co., Ltd. South Korea. B2B Export Department. Профессиональный аудит, подбор и таможенное оформление.</p>
-    </div>
-</footer>
-
-<!-- Простейшие JS эффекты для оживления интерфейса -->
-<script>
-    // Появление элементов при прокрутке
-    document.addEventListener("DOMContentLoaded", function () {
-        const fadeElements = document.querySelectorAll('.fade-in-up');
-        
-        const checkVisibility = () => {
-            fadeElements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    el.classList.add('visible');
-                }
-            });
+    <!-- ================= СКРИПТЫ (JS) ================= -->
+    <script>
+        // База переводов
+        const translations = {
+            ru: {
+                nav_tg: "Оптовый отдел",
+                hero_badge: "Южная Корея • Прямой экспорт",
+                hero_title: "Южнокорейские автокомпоненты и промышленная гидравлика оптом",
+                hero_desc: "Официальные поставки со складов Инчхона и Кёнги-до. Налаженные коридоры в Узбекистан и Казахстан. Возврат 10% корейского НДС закладывается в вашу цену.",
+                search_placeholder: "Введите OEM артикул детали или марку...",
+                search_btn: "Проверить склад",
+                stat_1: "Деталей в постоянной базе",
+                stat_2: "Посредников (Свой 개인사업자)",
+                stat_3: "Дней экспресс авиа-доставка",
+                stat_4: "Вычет корейского НДС",
+                spec_title: "Специализация и Технический Аудит",
+                spec_desc: "Мы обходим корпоративные барьеры чеболей, поставляя дефицитные компоненты напрямую от заводов второго эшелона.",
+                card1_title: "Спецтехника и Складские Хабы",
+                card1_li1: "<strong>Восстановленные узлы (재생)</strong>: Гидравлические насосы, редукторы и ДВС.",
+                card1_li2: "Экспертный подбор запчастей для экскаваторов Doosan/Hyundai.",
+                card1_li3: "Гарантированное решение сложных форс-мажоров при простое техники.",
+                card2_title: "Легковой OEM / OES Опт",
+                card2_li1: "Оригинальные расходные линейки от производителей: CTR, Mando, Sangsin.",
+                card2_li2: "Точечный выкуп объемов у корейских суб-дилеров.",
+                card2_li3: "Комплектация сборных заказов под дефицитные артикулы ваших складов.",
+                form_title: "Срочный просчет спецификации",
+                form_label_1: "Название организации / Локация",
+                form_label_2: "Список необходимых позиций (OEM, артикулы)",
+                form_label_3: "Прямой контакт (Telegram / WhatsApp)",
+                form_submit: "Отправить запрос на аудит цен",
+                alert_msg: "Запрос принят! Мы свяжемся с вами."
+            },
+            en: {
+                nav_tg: "Wholesale Dept",
+                hero_badge: "South Korea • Direct Export",
+                hero_title: "South Korean Auto Parts and Industrial Hydraulics Wholesale",
+                hero_desc: "Official supplies from Incheon and Gyeonggi-do warehouses. Established routes to Uzbekistan and Kazakhstan. 10% Korean VAT refund included in your price.",
+                search_placeholder: "Enter OEM part number or brand...",
+                search_btn: "Check Stock",
+                stat_1: "Parts in database",
+                stat_2: "Middlemen (Own Business License)",
+                stat_3: "Days express air delivery",
+                stat_4: "Korean VAT deduction",
+                spec_title: "Specialization and Technical Audit",
+                spec_desc: "We bypass corporate barriers, supplying scarce components directly from tier-two factories.",
+                card1_title: "Heavy Machinery & Warehousing",
+                card1_li1: "<strong>Remanufactured units (재생)</strong>: Hydraulic pumps, reducers, engines.",
+                card1_li2: "Expert parts selection for Doosan/Hyundai excavators.",
+                card1_li3: "Guaranteed solutions for complex equipment downtime.",
+                card2_title: "Passenger OEM / OES Wholesale",
+                card2_li1: "Genuine consumables from manufacturers: CTR, Mando, Sangsin.",
+                card2_li2: "Spot volume buyouts from Korean sub-dealers.",
+                card2_li3: "Consolidated orders for scarce parts for your regional warehouses.",
+                form_title: "Urgent Specification Calculation",
+                form_label_1: "Company Name / Location",
+                form_label_2: "List of required items (OEM, part numbers)",
+                form_label_3: "Direct contact (Telegram / WhatsApp)",
+                form_submit: "Send Request for Price Audit",
+                alert_msg: "Request received! We will contact you soon."
+            },
+            kk: {
+                nav_tg: "Көтерме бөлім",
+                hero_badge: "Оңтүстік Корея • Тікелей экспорт",
+                hero_title: "Оңтүстік Корея автобөлшектері мен өнеркәсіптік гидравликасы көтерме саудада",
+                hero_desc: "Инчхон және Кёнги-до қоймаларынан ресми жеткізілімдер. Өзбекстан мен Қазақстанға тұрақты логистика.",
+                search_placeholder: "OEM артикулын немесе маркасын енгізіңіз...",
+                search_btn: "Қойманы тексеру",
+                stat_1: "Дерекқордағы бөлшектер",
+                stat_2: "Далдалдарсыз (Жеке кәсіпкерлік)",
+                stat_3: "Күн экспресс әуе жеткізілімі",
+                stat_4: "Кореялық ҚҚС шегерімі",
+                spec_title: "Мамандану және Техникалық Аудит",
+                spec_desc: "Біз тікелей екінші эшелон зауыттарынан тапшы компоненттерді жеткіземіз.",
+                card1_title: "Арнайы техника және Қойма",
+                card1_li1: "<strong>Қалпына келтірілген бөлшектер (재생)</strong>: Гидравликалық сорғылар, қозғалтқыштар.",
+                card1_li2: "Doosan/Hyundai экскаваторларына бөлшектерді сарапшылық таңдау.",
+                card1_li3: "Техника тоқтап қалған кездегі күрделі мәселелерді шешу.",
+                card2_title: "Жеңіл автокөлік OEM / OES",
+                card2_li1: "Өндірушілерден түпнұсқа бөлшектер: CTR, Mando, Sangsin.",
+                card2_li2: "Кореялық суб-дилерлерден көлемді сатып алу.",
+                card2_li3: "Сіздің қоймаларыңыз үшін тапшы артикулдарды жинақтау.",
+                form_title: "Спецификацияны шұғыл есептеу",
+                form_label_1: "Ұйым атауы / Орналасқан жері",
+                form_label_2: "Қажетті позициялар тізімі (OEM, артикулдар)",
+                form_label_3: "Тікелей байланыс (Telegram / WhatsApp)",
+                form_submit: "Баға аудитіне сұраныс жіберу",
+                alert_msg: "Сұраныс қабылданды! Біз сізбен байланысамыз."
+            },
+            uz: {
+                nav_tg: "Ulgurji bo'lim",
+                hero_badge: "Janubiy Koreya • To'g'ridan-to'g'ri eksport",
+                hero_title: "Janubiy Koreya avto ehtiyot qismlari va sanoat gidravlikasi ulgurji savdosi",
+                hero_desc: "Incheon va Gyeonggi-do omborlaridan rasmiy yetkazib berish. O'zbekiston va Qozog'istonga barqaror logistika.",
+                search_placeholder: "OEM artikuli yoki markasini kiriting...",
+                search_btn: "Omborni tekshirish",
+                stat_1: "Bazada ehtiyot qismlar",
+                stat_2: "Vositachilarsiz (O'z tadbirkorligimiz)",
+                stat_3: "Kun ekspress avia yetkazib berish",
+                stat_4: "Koreya QQS chegirmasi",
+                spec_title: "Ixtisoslashuv va Texnik Audit",
+                spec_desc: "Biz korporativ to'siqlarni aylanib o'tib, to'g'ridan-to'g'ri zavodlardan taqchil qismlarni yetkazib beramiz.",
+                card1_title: "Maxsus texnika va Ombor",
+                card1_li1: "<strong>Qayta tiklangan qismlar (재생)</strong>: Gidravlik nasoslar, dvigatellar.",
+                card1_li2: "Doosan/Hyundai ekskavatorlari uchun qismlarni ekspert tanlovi.",
+                card1_li3: "Texnika to'xtab qolganda murakkab muammolarni hal qilish.",
+                card2_title: "Yengil avtomobil OEM / OES",
+                card2_li1: "Ishlab chiqaruvchilardan original qismlar: CTR, Mando, Sangsin.",
+                card2_li2: "Koreys sub-dilerlaridan hajmli xaridlar.",
+                card2_li3: "Sizning omborlaringiz uchun taqchil artikullarni yig'ish.",
+                form_title: "Spetsifikatsiyani zudlik bilan hisoblash",
+                form_label_1: "Tashkilot nomi / Joylashuvi",
+                form_label_2: "Kerakli pozitsiyalar ro'yxati (OEM, artikullar)",
+                form_label_3: "To'g'ridan-to'g'ri aloqa (Telegram / WhatsApp)",
+                form_submit: "Narx auditi uchun so'rov yuborish",
+                alert_msg: "So'rov qabul qilindi! Biz siz bilan bog'lanamiz."
+            }
         };
 
-        window.addEventListener('scroll', checkVisibility);
-        checkVisibility(); // проверка при первой загрузке
-    });
+        // Логика смены языка
+        function changeLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const dict = translations[lang];
 
-    // Скролл к форме при клике на симулятор поиска
-    function focusOnForm() {
-        const query = document.getElementById('oemInput').value;
-        if(query.trim() !== "") {
-            document.getElementById('details').value = "Запрос по результату экспресс-поиска: " + query;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerHTML = dict[key]; 
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) el.setAttribute('placeholder', dict[key]);
+            });
+            
+            localStorage.setItem('rinauto_lang', lang);
         }
-        document.getElementById('leadForm').scrollIntoView({ behavior: 'smooth' });
-    }
 
-    // Обработка формы
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        alert("Ваш запрос принят на технический и ценовой аудит! Наш специалист в Корее свяжется с вами через указанный мессенджер в течение 2 часов.");
-    }
-</script>
+        // Запуск при загрузке страницы
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedLang = localStorage.getItem('rinauto_lang');
+            if(savedLang) {
+                document.getElementById('langSelect').value = savedLang;
+                changeLanguage();
+            }
+
+            // Анимация блоков при скролле
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            const checkVisibility = () => {
+                fadeElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) el.classList.add('visible');
+                });
+            };
+            window.addEventListener('scroll', checkVisibility);
+            checkVisibility();
+        });
+
+        // Скролл к форме при поиске
+        function focusOnForm() {
+            const query = document.getElementById('oemInput').value;
+            if(query.trim() !== "") {
+                document.getElementById('details').value = "OEM / Марка: " + query + "\n";
+            }
+            document.getElementById('leadForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Имитация отправки формы
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const lang = document.getElementById('langSelect').value;
+            alert(translations[lang].alert_msg);
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

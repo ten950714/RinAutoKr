@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RinAuto Premium — B2B Export</title>
-    <!-- Подключаем иконки FontAwesome -->
+    <!-- Подключаем иконки FontAwesome для всех соцсетей -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ================= НАСТРОЙКИ ДИЗАЙНА (CSS) ================= */
+        /* ================= НАСТРОЙКИ ДИЗАЙНА (СВЕТЛАЯ ТЕМА) ================= */
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #131c2e;
-            --bg-input: #070a12;
-            --primary: #3b82f6;
-            --primary-glow: rgba(59, 130, 246, 0.5);
-            --accent: #60a5fa;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
+            /* Фон идеально подобран под фон логотипа 1000050838.jpg */
+            --bg-main: #eef5f9; 
+            --bg-card: #ffffff;
+            --bg-input: #f1f5f9;
+            --primary: #fa0000; /* Фирменный красный цвет RinAuto */
+            --primary-glow: rgba(250, 0, 0, 0.2);
+            --accent: #2563eb;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
@@ -35,75 +36,104 @@
         .fade-in-up.visible { opacity: 1; transform: translateY(0); }
 
         /* Шапка сайта */
-        header { background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 0; z-index: 1000; }
+        header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
         .header-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 26px; font-weight: 800; color: #ffffff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .logo span { color: var(--primary); }
+        
+        /* ЛОГОТИП */
+        .logo img { height: 45px; border-radius: 8px; object-fit: contain; display: block; mix-blend-mode: multiply; }
+
         .nav-right { display: flex; align-items: center; gap: 16px; }
 
         /* Переключатель языков */
-        .lang-switcher { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; font-size: 14px; cursor: pointer; outline: none; font-weight: 600; }
+        .lang-switcher { background: var(--bg-input); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; font-size: 14px; cursor: pointer; outline: none; font-weight: 600; transition: 0.2s; }
         .lang-switcher:hover { border-color: var(--primary); }
 
-        /* Кнопка Telegram */
-        .btn-tg { background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; padding: 10px 20px; border-radius: 6px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(34, 158, 217, 0.3); transition: 0.2s; }
-        .btn-tg:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(34, 158, 217, 0.5); }
+        /* Главная кнопка шапки */
+        .btn-action { background: var(--primary); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; padding: 10px 20px; border-radius: 6px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px var(--primary-glow); transition: 0.2s; border: none; cursor: pointer;}
+        .btn-action:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 0, 0, 0.3); }
 
         /* Главный экран */
-        .hero { position: relative; padding: 120px 0 80px 0; background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(30, 58, 138, 0.2) 0%, transparent 50%); text-align: center; }
-        .badge-b2b { display: inline-block; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: var(--accent); padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 24px; }
-        .hero h1 { font-size: 54px; font-weight: 800; line-height: 1.15; margin-bottom: 24px; background: linear-gradient(to right, #ffffff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero { position: relative; padding: 100px 0 60px 0; background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(250, 0, 0, 0.05) 0%, transparent 50%); text-align: center; }
+        .badge-b2b { display: inline-block; background: #e0e7ff; border: 1px solid #c7d2fe; color: var(--accent); padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 24px; }
+        .hero h1 { font-size: 54px; font-weight: 800; line-height: 1.15; margin-bottom: 24px; color: #0f172a; }
         .hero p { font-size: 19px; color: var(--text-muted); max-width: 750px; margin: 0 auto 40px auto; }
 
         /* Поиск */
-        .search-container { max-width: 650px; margin: 0 auto 50px auto; background: var(--bg-card); padding: 8px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; align-items: center; transition: 0.3s; }
-        .search-container:focus-within { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+        .search-container { max-width: 650px; margin: 0 auto 50px auto; background: var(--bg-card); padding: 8px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; align-items: center; transition: 0.3s; }
+        .search-container:focus-within { border-color: var(--accent); box-shadow: 0 0 20px rgba(37, 99, 235, 0.15); }
         .search-container i { color: var(--text-muted); margin-left: 16px; }
-        .search-container input { flex: 1; background: transparent; border: none; outline: none; color: #ffffff; padding: 12px; font-size: 16px; }
-        .search-container button { background-color: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .search-container input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-main); padding: 12px; font-size: 16px; }
+        .search-container button { background-color: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s;}
+        .search-container button:hover { background-color: #1d4ed8; }
 
         /* Бегущая строка */
-        .marquee { width: 100%; overflow: hidden; white-space: nowrap; background: rgba(19, 28, 46, 0.4); border-y: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px; }
+        .marquee { width: 100%; overflow: hidden; white-space: nowrap; background: rgba(255, 255, 255, 0.5); border-y: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px; }
         .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
         .marquee-content span { font-size: 20px; font-weight: 700; color: var(--text-muted); margin-right: 60px; opacity: 0.6; }
         @keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
         /* Статистика */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 100px; }
-        .stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 30px; border-radius: 10px; text-align: center; }
-        .stat-num { font-size: 40px; font-weight: 800; color: var(--accent); margin-bottom: 8px; display: block; }
-        .stat-label { font-size: 14px; color: var(--text-muted); text-transform: uppercase; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+        .stat-num { font-size: 40px; font-weight: 800; color: var(--primary); margin-bottom: 8px; display: block; }
+        .stat-label { font-size: 14px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;}
 
         /* Карточки специализации */
-        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 16px; }
+        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 16px; color: var(--text-main); }
         .section-subtitle { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 60px auto; font-size: 16px; }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 32px; margin-bottom: 100px; }
         
-        .premium-card { background: linear-gradient(145deg, #131c2e 0%, #0f1626 100%); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; }
-        .premium-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
-        .premium-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .premium-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        .premium-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); border-radius: 12px 0 0 12px; }
+        .premium-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; color: var(--text-main); }
         .premium-card h3 i { color: var(--accent); }
         .premium-card ul { list-style: none; }
         .premium-card ul li { margin-bottom: 14px; padding-left: 28px; position: relative; color: var(--text-muted); font-size: 15px; }
-        .premium-card ul li i { position: absolute; left: 0; top: 4px; color: var(--accent); }
+        .premium-card ul li i { position: absolute; left: 0; top: 4px; color: var(--primary); }
 
         /* Форма заявки */
-        .form-section { background: radial-gradient(circle at center, #131c2e 0%, #0b0f19 100%); padding: 100px 0; border-top: 1px solid var(--border); }
-        .form-wrapper { max-width: 650px; margin: 0 auto; background: rgba(19, 28, 46, 0.8); border: 1px solid var(--border); border-radius: 16px; padding: 50px; }
+        .form-section { background: #ffffff; padding: 80px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .form-wrapper { max-width: 650px; margin: 0 auto; background: var(--bg-main); border: 1px solid var(--border); border-radius: 16px; padding: 50px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 24px; }
-        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; color: #ffffff; font-size: 15px; }
-        .btn-submit { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; }
+        .form-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 15px; outline: none; transition: 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .btn-submit { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .btn-submit:hover { background: #d60000; box-shadow: 0 4px 15px var(--primary-glow); }
 
-        /* Плавающая кнопка чата */
-        .floating-chat { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; box-shadow: 0 4px 20px rgba(34, 158, 217, 0.4); z-index: 9999; text-decoration: none; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(34, 158, 217, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0); } }
+        /* ================= ПЛАВАЮЩИЕ КНОПКИ СОЦСЕТЕЙ ================= */
+        .floating-socials { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
+        .social-circle { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: 0.3s; text-decoration: none; }
+        .social-circle:hover { transform: scale(1.1) translateX(-5px); }
+        
+        /* Цвета брендов */
+        .bg-wa { background: #25D366; animation: pulse-green 2s infinite; }
+        .bg-tg { background: #229ED9; }
+        .bg-ms { background: #0084FF; }
+        .bg-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .bg-tt { background: #000000; }
+
+        @keyframes pulse-green { 
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); } 
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } 
+        }
         
         /* Подвал */
-        footer { background: #070a12; padding: 30px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 14px; }
+        footer { background: var(--bg-main); padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
+        .footer-socials { display: none; /* Скрыты на десктопе, показываются на мобильных */ justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .footer-socials a { color: var(--text-muted); font-size: 24px; transition: 0.2s; }
+        .footer-socials a:hover { color: var(--primary); }
         
-        /* Адаптивность для телефонов */
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .hero h1 { font-size: 38px; } .form-wrapper { padding: 30px; } }
+        /* Адаптивность */
+        @media (max-width: 768px) { 
+            .grid-2 { grid-template-columns: 1fr; } 
+            .hero h1 { font-size: 38px; } 
+            .form-wrapper { padding: 30px; } 
+            .floating-socials { display: none; } /* На мобильных плавающие кнопки убираем вниз */
+            .footer-socials { display: flex; }
+        }
     </style>
 </head>
 <body>
@@ -111,7 +141,10 @@
     <!-- ================= HTML СТРУКТУРА ================= -->
     <header>
         <div class="container header-flex">
-            <a href="#" class="logo"><i class="fa-solid fa-gears text-primary"></i> Rin<span>Auto</span></a>
+            <!-- Логотип из файла -->
+            <a href="#" class="logo">
+                <img src="1000050838.jpg" alt="RinAuto Logo">
+            </a>
             <div class="nav-right">
                 <!-- Селектор языков -->
                 <select class="lang-switcher" id="langSelect" onchange="changeLanguage()">
@@ -120,9 +153,9 @@
                     <option value="uz">🇺🇿 O'zbekcha</option>
                     <option value="en">🇬🇧 English</option>
                 </select>
-                <a href="https://t.me/ТВОЙ_ТЕЛЕГРАМ" target="_blank" class="btn-tg">
-                    <i class="fa-brands fa-telegram"></i> <span data-i18n="nav_tg">Оптовый отдел</span>
-                </a>
+                <button onclick="document.getElementById('leadForm').scrollIntoView({ behavior: 'smooth' });" class="btn-action">
+                    <i class="fa-solid fa-file-signature"></i> <span data-i18n="nav_action">Оставить заявку</span>
+                </button>
             </div>
         </div>
     </header>
@@ -208,7 +241,7 @@
                         <textarea id="details" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="messenger" data-i18n="form_label_3">Прямой контакт (Telegram / WhatsApp)</label>
+                        <label for="messenger" data-i18n="form_label_3">Ваш контакт (WhatsApp / Telegram)</label>
                         <input type="text" id="messenger" required>
                     </div>
                     <button type="submit" class="btn-submit" data-i18n="form_submit">Отправить запрос на аудит цен</button>
@@ -217,10 +250,26 @@
         </div>
     </section>
 
-    <a href="https://t.me/ТВОЙ_ТЕЛЕГРАМ" target="_blank" class="floating-chat"><i class="fa-brands fa-telegram"></i></a>
+    <!-- ================= ПЛАВАЮЩИЕ КНОПКИ СОЦСЕТЕЙ (Desktop) ================= -->
+    <div class="floating-socials">
+        <!-- Замените # на ваши реальные ссылки -->
+        <a href="#" class="social-circle bg-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" class="social-circle bg-tg" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+        <a href="#" class="social-circle bg-ms" title="Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+        <a href="#" class="social-circle bg-ig" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-circle bg-tt" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
     
     <footer>
         <div class="container">
+            <!-- Соцсети для мобильной версии -->
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-messenger"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
             <p>&copy; 2026 RinAuto Logistics Co., Ltd. South Korea.</p>
         </div>
     </footer>
@@ -230,7 +279,7 @@
         // База переводов
         const translations = {
             ru: {
-                nav_tg: "Оптовый отдел",
+                nav_action: "Оставить заявку",
                 hero_badge: "Южная Корея • Прямой экспорт",
                 hero_title: "Южнокорейские автокомпоненты и промышленная гидравлика оптом",
                 hero_desc: "Официальные поставки со складов Инчхона и Кёнги-до. Налаженные коридоры в Узбекистан и Казахстан. Возврат 10% корейского НДС закладывается в вашу цену.",
@@ -253,12 +302,12 @@
                 form_title: "Срочный просчет спецификации",
                 form_label_1: "Название организации / Локация",
                 form_label_2: "Список необходимых позиций (OEM, артикулы)",
-                form_label_3: "Прямой контакт (Telegram / WhatsApp)",
+                form_label_3: "Ваш контакт (WhatsApp / Telegram)",
                 form_submit: "Отправить запрос на аудит цен",
-                alert_msg: "Запрос принят! Мы свяжемся с вами."
+                alert_msg: "Запрос принят! Мы свяжемся с вами в ближайшее время."
             },
             en: {
-                nav_tg: "Wholesale Dept",
+                nav_action: "Send Request",
                 hero_badge: "South Korea • Direct Export",
                 hero_title: "South Korean Auto Parts and Industrial Hydraulics Wholesale",
                 hero_desc: "Official supplies from Incheon and Gyeonggi-do warehouses. Established routes to Uzbekistan and Kazakhstan. 10% Korean VAT refund included in your price.",
@@ -281,12 +330,12 @@
                 form_title: "Urgent Specification Calculation",
                 form_label_1: "Company Name / Location",
                 form_label_2: "List of required items (OEM, part numbers)",
-                form_label_3: "Direct contact (Telegram / WhatsApp)",
+                form_label_3: "Your contact (WhatsApp / Telegram)",
                 form_submit: "Send Request for Price Audit",
                 alert_msg: "Request received! We will contact you soon."
             },
             kk: {
-                nav_tg: "Көтерме бөлім",
+                nav_action: "Өтініш қалдыру",
                 hero_badge: "Оңтүстік Корея • Тікелей экспорт",
                 hero_title: "Оңтүстік Корея автобөлшектері мен өнеркәсіптік гидравликасы көтерме саудада",
                 hero_desc: "Инчхон және Кёнги-до қоймаларынан ресми жеткізілімдер. Өзбекстан мен Қазақстанға тұрақты логистика.",
@@ -309,12 +358,12 @@
                 form_title: "Спецификацияны шұғыл есептеу",
                 form_label_1: "Ұйым атауы / Орналасқан жері",
                 form_label_2: "Қажетті позициялар тізімі (OEM, артикулдар)",
-                form_label_3: "Тікелей байланыс (Telegram / WhatsApp)",
+                form_label_3: "Байланыс (WhatsApp / Telegram)",
                 form_submit: "Баға аудитіне сұраныс жіберу",
                 alert_msg: "Сұраныс қабылданды! Біз сізбен байланысамыз."
             },
             uz: {
-                nav_tg: "Ulgurji bo'lim",
+                nav_action: "Ariza qoldirish",
                 hero_badge: "Janubiy Koreya • To'g'ridan-to'g'ri eksport",
                 hero_title: "Janubiy Koreya avto ehtiyot qismlari va sanoat gidravlikasi ulgurji savdosi",
                 hero_desc: "Incheon va Gyeonggi-do omborlaridan rasmiy yetkazib berish. O'zbekiston va Qozog'istonga barqaror logistika.",
@@ -337,7 +386,7 @@
                 form_title: "Spetsifikatsiyani zudlik bilan hisoblash",
                 form_label_1: "Tashkilot nomi / Joylashuvi",
                 form_label_2: "Kerakli pozitsiyalar ro'yxati (OEM, artikullar)",
-                form_label_3: "To'g'ridan-to'g'ri aloqa (Telegram / WhatsApp)",
+                form_label_3: "Aloqa uchun (WhatsApp / Telegram)",
                 form_submit: "Narx auditi uchun so'rov yuborish",
                 alert_msg: "So'rov qabul qilindi! Biz siz bilan bog'lanamiz."
             }
